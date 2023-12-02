@@ -1,4 +1,24 @@
+import requests
+import woocommerce
+import mysql.connector
+
 from woocommerce import API
+
+def get_conn():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        passwd="",
+        database="wms"
+    )
+
+
+my_conn = get_conn()
+cursor = my_conn.cursor()
+cursor.execute("USE wms")
+cursor.execute("SELECT * FROM products")
+result = cursor.fetchall()
+print (result)
 
 wcapi = API(
     # url="https://pansen.pl/wp-json/wc/v3/products",
@@ -8,34 +28,34 @@ wcapi = API(
     version="wc/v3"
 )
 
-for _ in range(3):
-    # Your code here
-    # print("This is loop iteration", _ + 1)
+# for _ in range(3):
+#     # Your code here
+#     # print("This is loop iteration", _ + 1)
 
 
-    data = {
-        "name": "Olimp Creatine",
-        "type": "simple",
-        "regular_price": "129.99",
-        "EAN": "43632583569547",
-        "description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
-        "short_description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
-        "categories": [
-            {
-                "id": 9
-            },
-            {
-                "id": 14
-            }
-        ],
-        "images": [
-            {
-                "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
-            },
-            {
-                "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
-            }
-        ]
-    }
+#     data = {
+#         "name": "Olimp Creatine",
+#         "type": "simple",
+#         "regular_price": "129.99",
+#         "EAN": "43632583569547",
+#         "description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+#         "short_description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+#         "categories": [
+#             {
+#                 "id": 9
+#             },
+#             {
+#                 "id": 14
+#             }
+#         ],
+#         "images": [
+#             {
+#                 "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_front.jpg"
+#             },
+#             {
+#                 "src": "http://demo.woothemes.com/woocommerce/wp-content/uploads/sites/56/2013/06/T_2_back.jpg"
+#             }
+#         ]
+#     }
 
-    print(wcapi.post("products", data).json())
+#     print(wcapi.post("products", data).json())
